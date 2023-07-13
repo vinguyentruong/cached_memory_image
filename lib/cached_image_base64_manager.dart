@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:cached_memory_image/cached_image_manager.dart';
 import 'package:flutter/foundation.dart';
@@ -11,8 +10,7 @@ class CachedImageBase64Manager implements CachedImageManager {
 
   CachedImageBase64Manager(this._cacheManager);
 
-  factory CachedImageBase64Manager.instance() =>
-      CachedImageBase64Manager(DefaultCacheManager());
+  factory CachedImageBase64Manager.instance() => CachedImageBase64Manager(DefaultCacheManager());
 
   static Future<Uint8List> _convertBase64ToBytes(String base64) async {
     const converter = Base64Decoder();
@@ -66,6 +64,18 @@ class CachedImageBase64Manager implements CachedImageManager {
       );
       return files;
     }
+    return file;
+  }
+
+  @override
+  Future<File?> getCacheBytes(
+    String key, {
+    Duration maxAge = const Duration(days: 30),
+    String fileExtension = 'jpg',
+  }) async {
+    // Check if the image file is not in the cache
+    final fileInfo = await _cacheManager.getFileFromCache(key);
+    final file = fileInfo?.file;
     return file;
   }
 

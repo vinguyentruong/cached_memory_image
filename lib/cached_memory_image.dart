@@ -147,6 +147,6 @@ class _CachedMemoryImageState extends State<CachedMemoryImage> {
         widget.bytes!,
       );
     }
-    return null;
+    return _cachedImageManager?.getCacheBytes(widget.uniqueKey);
   }
 }

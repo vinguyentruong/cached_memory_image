@@ -23,4 +23,10 @@ abstract class CachedImageManager {
     Duration maxAge,
     String fileExtension,
   });
+
+  Future<File?> getCacheBytes(
+    String key, {
+    Duration maxAge,
+    String fileExtension,
+  });
 }

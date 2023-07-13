@@ -53,6 +53,8 @@ class CachedMemoryImageProvider
       file = await _cachedImageManager?.cacheBase64(uniqueKey, base64!);
     } else if (bytes != null) {
       file = await _cachedImageManager?.cacheBytes(uniqueKey, bytes!);
+    } else {
+      file = await _cachedImageManager?.getCacheBytes(uniqueKey);
     }
 
     final bytesImage = await compute(readAsBytes, file);
