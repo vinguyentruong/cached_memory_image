@@ -45,16 +45,13 @@ class CachedImageBase64Manager implements CachedImageManager {
   }
 
   @override
-  Future<File> cacheBytes(
+  Future<File?> cacheBytes(
     String key,
     Uint8List bytes, {
     Duration maxAge = const Duration(days: 30),
     String fileExtension = 'jpg',
   }) async {
-    // Check if the image file is not in the cache
-    final fileInfo = await _cacheManager.getFileFromCache(key);
-    final file = fileInfo?.file;
-    if (file == null) {
+    if (bytes.isNotEmpty) {
       // Put the image file in the cache
       final files = await _cacheManager.putFile(
         key,
@@ -64,6 +61,9 @@ class CachedImageBase64Manager implements CachedImageManager {
       );
       return files;
     }
+    // Check if the image file is not in the cache
+    final fileInfo = await _cacheManager.getFileFromCache(key);
+    final file = fileInfo?.file;
     return file;
   }
 

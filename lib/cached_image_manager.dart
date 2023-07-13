@@ -17,7 +17,7 @@ abstract class CachedImageManager {
     String fileExtension,
   });
 
-  Future<File> cacheBytes(
+  Future<File?> cacheBytes(
     String key,
     Uint8List bytes, {
     Duration maxAge,
